@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}traipor - Register{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Register</h1>
+</div>
+
+<div class="col-md-4">
+    {{ wtf.quick_form(form) }}
+    <p>* mandatory</p>
+
+    <h3>Privacy Terms</h3>
+    <a href="#Datenschutzrichtlinien">German version</a>
+    <p> {% include 'privacy_terms_content.html' %} </p>
+    <h3>Exclusion of Liability</h3>
+    <p> {% include 'liability_exclusion_content.html' %} </p>
+
+    <a name="Datenschutzrichtlinien"><h3>Datenschutzrichtlinien</h3></a>
+    <p> {% include 'privacy_terms_content_de.html' %} </p>
+    <h3>Haftungsausschluss</h3>
+    <p> {% include 'liability_exclusion_content_de.html' %} </p>
+
+</div>
+
+
+{% endblock %}

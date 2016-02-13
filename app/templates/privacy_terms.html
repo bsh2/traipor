@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}traipor{% endblock %}
+
+{% block page_content %}
+  <div class="page-header">
+    <h1>Privacy Terms</h1>
+  </div>
+  <a href="#Datenschutzrichtlinien">German version</a>
+  {% include 'privacy_terms_content.html' %}
+
+  <a name="Datenschutzrichtlinien"><h1>Datenschutzrichtlinien</h1></a>
+  {% include 'privacy_terms_content_de.html' %}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

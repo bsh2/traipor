@@ -1,0 +1,16 @@
+Dear {{ user.username }},
+your Fitness Fatigue parameters were fitted.
+initial_p: {{ ffparms.initial_p|round(4) }}
+k_1: {{ ffparms.k_1|round(4) }}
+tau_1: {{ ffparms.tau_1|round(4) }}
+k_2: {{ ffparms.k_2|round(4) }}
+tau_2: {{ ffparms.tau_2|round(4) }}
+used load metric: {{ ffparms.load_metric }}
+used performance metric: {{ ffparms.perf_metric }}
+rmse: {{ fmin }}
+runtime: {{ runtime }}
+algo: {{ algo }}
+
+You can now proceed to generate a Fitness Fatigue plan.
+Sincerely,
+The traipor Team

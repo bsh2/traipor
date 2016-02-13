@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}traipor{% endblock %}
+
+{% block page_content %}
+
+<div class="col-md-6">
+  <h1>FAQ</h1>
+
+  <div class=well>
+    <h4>How is this service supposed to be used?</h4>
+    In short:
+    <ul>
+      <li>Upload your <a href="http://www.goldencheetah.org/">GoldenCheetah</a> metrics export file.</li>
+      <li>Start your Fitness Fatigue and your PerPot model fitting.</li>
+      <li>Generate your Fitness Fatigue and your PerPot plans.</li>
+    </ul>
+  </div>
+
+  <div class=well>
+    <h4>What's the purpose of this project?</h4>
+    This project is part of a master thesis in computer science at the
+    <a href="http://www.h-brs.de/en">Bonn-Rhein-Sieg University of Applied Sciences</a>.
+    It's embedded in a larger research project called <a href="http://stella-mobility.weebly.com/index.html">STELLA</a>.
+    The goal is to evaluate, if training models can be used with real world data
+    not collected in a lab environment and if automatically generated plans
+    based on these models can help cyclists to reach their goals.
+  </div>
+
+  <div class=well>
+    <h4>What is a training model?</h4>
+    In our case a training model is a mathematical defined construct that tries
+    to simulate how the human body responds to training loads. It takes some
+    individual model parameters and a series of training loads as input and
+    returns a series of performance numbers that should be close to the
+    performance adaptation in reality.
+  </div>
+
+  <div class=well>
+    <h4>What is a parameter fitting?</h4>
+    The process of parameter fitting tries to find the individual model
+    parameters that let the model simulate reality as close as possible. The
+    fitting can be done with a numerical technique like L-BFGS-B or other
+    optimization techniques.
+  </div>
+
+  <div class=well>
+    <h4>Why do you need my GoldenCheetah metrics export?</h4>
+    We use the performance and training load numbers for the individual
+    parameter fitting.
+  </div>
+
+  <div class=well>
+    <h4>How can I create a GoldenCheetah metrics export file?</h4>
+    To export your metrics from <a href="http://www.goldencheetah.org/">GoldenCheetah</a>, 
+    go to the menu item "Export Metrics as CSV...". Depending on your version of
+    GC, it may be located in the "Activity" or "Tools" menu and you may have to
+    switch to the "Activities" view first.
+  </div>
+
+  <div class=well>
+    <h4>How do you generate the training plans?</h4>
+    We use evolutionary techniques like CMA-ES or Differential Evolution. More
+    information will be published in a paper in September as part of the <a href="http://inista.org">INISTA</a> 
+    conference proceedings.
+  </div>
+
+  <div class=well>
+    <h4>Don't you think a training plan needs more than just a series of load numbers?</h4>
+    We are aware of the short comings of the models and our approach. But we
+    still think it's worth to evaluate these models with real world data as a
+    good model can be helpful in the design of a personal training plan.
+  </div>
+
+  <div class=well>
+    <h4>The generated plan reaches my goal but the modeled performance changes
+	    during the plan are pretty unrealistic. What's wrong?</h4>
+    The models aren't perfect and are highly dependent on the individual
+    parameters. So the model could be at fault or your parameters were fitted in
+    a bad way. Like mentioned above, we are doing this to find such flaws.
+  </div>
+
+  <div class=well>
+    <h4>Where can I get more information about the used models?</h4>
+    Read about Fitness Fatigue <a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=5409179&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D5409179">here</a>.
+    Read about PerPot <a href="http://www.americankinesiology.org/AcuCustom/Sitename/Documents/DocumentItem/31.pdf">here</a>.
+    Read a comparison of the two models <a href="http://www.sport.uni-bayreuth.de/spo_wiss_I/de/download/trainingsadaptation/IJCSS-Volume7_Edition2_Pfeiffer.pdf">here</a>.
+    More papers can be found with the usual search engines.
+  </div>
+
+  <div class=well>
+    <h4>Why do my modeled start performances for a plan differ between the used models?</h4>
+    The two used models differ a lot in their definition and the quality of the
+    result of the parameter fitting process may also differ from model to model.
+    So differences in the modeled performance values are to be expected.
+  </div>
+
+  <div class=well>
+    <h4>I have some other question. What now?</h4>
+    No problem. Just tell <a href="mailto:traipor@inf.h-brs.de">us</a>.
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

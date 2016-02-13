@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}traipor - Delete Account{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Delete Account</h1>
+</div>
+
+<div class="col-md-4">
+  <h3>Do you really want to delete your account?</h3>
+  {{ wtf.quick_form(form) }}
+</div>
+
+
+{% endblock %}

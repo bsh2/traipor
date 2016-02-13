@@ -1,0 +1,51 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% macro render_plan_short(plan, details_form, delete_form) %}
+<div class="well">
+  <div class="pull-left">Name: </div><div class="pull-right"> {{ plan.name }} </div><br>
+  <div class="pull-left">Start Date: </div><div class="pull-right">{{plan.start_date}} </div><br>
+  <div class="pull-left">Modeled Start Performance: </div><div class="pull-right">{{plan.ui_start_perf()|round(2)}} {{plan.perf_metric}} </div><br>
+  <div class="pull-left">Modeled End Performance: </div><div class="pull-right">{{plan.ui_end_perf()|round(2)}} {{plan.perf_metric}} </div><br>
+  <div class="pull-left">Goal: </div><div class="pull-right">{{plan.ui_goal()|round(2)}} {{plan.perf_metric}}</div><br>
+  <div class="pull-left">Length: </div><div class="pull-right">{{plan.length}} weeks </div><br>
+  {{ wtf.quick_form(details_form) }}
+  {{ wtf.quick_form(delete_form) }}
+</div>
+{% endmacro %}
+
+
+{% macro render_plan_details(plan, delete_form) %}
+<div class="well">
+  <div class="pull-left">Name: </div><div class="pull-right"> {{ plan.name }} </div><br>
+  <div class="pull-left">Start Date: </div><div class="pull-right">{{plan.start_date}} </div><br>
+  <div class="pull-left">Modeled Start Performance: </div><div class="pull-right">{{plan.ui_start_perf()|round(2)}} {{plan.perf_metric}} </div><br>
+  <div class="pull-left">Modeled End Performance: </div><div class="pull-right">{{plan.ui_end_perf()|round(2)}} {{plan.perf_metric}} </div><br>
+  <div class="pull-left">Goal: </div><div class="pull-right">{{plan.ui_goal()|round(2)}} {{plan.perf_metric}}</div><br>
+  <div class="pull-left">Length: </div><div class="pull-right">{{plan.length}} weeks </div><br>
+  <div class="pull-left">Max Allowed Load: </div><div class="pull-right">{{plan.ui_max_load()|round(2)}} {{plan.load_metric}} </div><br>
+  <div class="pull-left">Min Allowed Load: </div><div class="pull-right">{{plan.ui_min_load()|round(2)}} {{plan.load_metric}} </div><br>
+  <div class="pull-left">Weekly Training Days: </div><div class="pull-right">{{ plan.ui_weekly_cycle() }} </div><br>
+  <div class="pull-left">Off Weeks: </div><div class="pull-right">{{ plan.ui_off_weeks() }} </div><br>
+  {{ wtf.quick_form(delete_form) }}
+</div>
+{% endmacro %}
+
+
+{% macro render_plan_calendar(plan) %}
+<div class="well">
+  Plan Calendar:<br>
+  <textarea rows="30" cols=35 readonly="readonly">{% for entry in plan.to_calendar() %}{{ entry }}
+{% endfor %}
+  </textarea>
+</div>
+{% endmacro %}
+
+
+{% macro render_plan_loads(plan) %}
+<div class="well">
+  Raw Loads:<br>
+  <textarea rows="30" cols=35 readonly="readonly">{% for load in plan.ui_loads() %}{{ load }},
+{% endfor %}
+  </textarea>
+</div>
+{% endmacro %}

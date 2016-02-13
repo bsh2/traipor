@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "training/macros.html" as macro %}
+
+{% block title %}traipor - PerPot plan details{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>PerPot plan details</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    {{ macro.render_plan_details(plan, delete_form) }}
+  </div>
+  <div class="col-md-6" id="plan_note">
+    {% include 'plan_note.html' %}
+    <div>
+      <button id="de_button">German version</button>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="playground_container">
+    <script>
+      var model_parms = new Map();
+      model_parms['strainpot'] = {{ plan.strainpot }};
+      model_parms['responsepot'] = {{ plan.responsepot }};
+      model_parms['perfpot'] = {{ plan.perfpot }};
+      model_parms['straindelay'] = {{ plan.straindelay }};
+      model_parms['responsedelay'] = {{ plan.responsedelay }};
+      model_parms['overflowdelay'] = {{ plan.overflowdelay }};
+      var plan_loads = {{ plan.loads }};
+      var plan_since_initial_p = {{ plan.prequel_plan }};
+      plan_since_initial_p = plan_since_initial_p.concat(plan_loads);
+      var load_scale_factor = {{ plan.load_scale_factor }};
+      var perf_scale_factor = {{ plan.perf_scale_factor }};
+
+      var german_note = {% include 'plan_note_de.html' %};
+    </script>
+    <div id="perf_and_plan_plot" style="height:600px;width:800px;"></div>
+  </div>
+
+  {{ macro.render_plan_calendar(plan) }}
+  {{ macro.render_plan_loads(plan) }}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+  <script language="javascript" type="text/javascript" src="/static/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jquery.jqplot.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jqplot.canvasTextRenderer.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jqplot.canvasAxisLabelRenderer.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jqplot.barRenderer.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/pp_plan_details.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/perpot.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/jquery.jqplot.min.css" />
+  <link rel="stylesheet" type="text/css" href="/static/traipor.css" />
+{% endblock %}

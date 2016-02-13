@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}traipor - fitness fatigue model playground{% endblock %}
+
+{% block page_content %}
+
+  <div class="playground_container">
+    {% if default %}
+    <p>Start a parameter fitting to play with your own parameters.</p>
+    {% endif %}
+    <form>
+      <div class="form-group">
+        <div>
+	  <label for="plan">Define your demo plan like 50.0, 60.0, 70.0, 0.0, 55.0, 70.0, 0.0, ...</label>
+	  <span id="plan_span" class="error_span"></span>
+          <textarea id="plan" rows="5" placeholder="50.0, 60.0, 70.0, 0.0, ..."></textarea>
+        </div>
+        <div>
+          <label for="initial_p">initial_p</label>
+	  <input id="initial_p" class="text_input" type=text value={{ff_parms.initial_p}}>
+          <span id="initial_p_span" class="error_span"></span>
+        </div>
+        <div>
+          <label for="k_1">k_1</label>
+	  <input id="k_1" class="text_input" type=text value={{ff_parms.k_1}}>
+          <span id="k_1_span" class="error_span"></span>
+        </div>
+        <div>
+          <label for="tau_1">tau_1</label>
+	  <input id="tau_1" class="text_input" type=text value={{ff_parms.tau_1}}>
+          <span id="tau_1_span" class="error_span"></span>
+        </div>
+        <div>
+          <label for="k_2">k_2</label>
+	  <input id="k_2" class="text_input" type=text value={{ff_parms.k_2}}>
+          <span id="k_2_span" class="error_span"></span>
+        </div>
+        <div>
+          <label for="tau_2">tau_2</label>
+	  <input id="tau_2" class="text_input" type=text value={{ff_parms.tau_2}}>
+          <span id="tau_2_span" class="error_span"></span>
+        </div>
+      </div>
+    </form>
+    <div>
+      <button id="calc_button">calculate</button>
+    </div>
+  </div>
+
+  <div class="playground_container">
+      <p id="afterplanperformance">performance after plan: </p>
+      <div id="perf_and_plan_plot" style="height:600px;width:800px; "></div>
+  </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+  <script language="javascript" type="text/javascript" src="/static/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jquery.jqplot.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jqplot.canvasTextRenderer.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jqplot.canvasAxisLabelRenderer.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jqplot.barRenderer.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/jquery.jqplot.min.css" />
+  <link rel="stylesheet" type="text/css" href="/static/traipor.css" />
+  <script language="javascript" type="text/javascript" src="/static/util.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/fitnessfatigue_app.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/fitnessfatigue.js"></script>
+{% endblock %}

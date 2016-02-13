@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}traipor - perpot model playground{% endblock %}
+
+{% block page_content %}
+
+  <div class="playground_container">
+    {% if default %}
+    <p>Start a parameter fitting to play with your own parameters.</p>
+    {% endif %}
+    <form>
+      <div class="form-group">
+        <div>
+	  <label for="plan">Define your demo plan like 50.0, 60.0, 70.0, 0.0, 55.0, 70.0, 0.0, ...</label>
+	  <span id="plan_span" class="error_span"></span>
+          <textarea id="plan" rows="5" placeholder="0.05, 0.05, 0.05, 0.0, ..."></textarea>
+        </div>
+        <div>
+          <label for="sp">Strain Potential SP</label>
+	  <input id="sp" class="text_input" type=text value={{pp_parms.strainpot}}>
+          <span id="sp_span" class="error_span"></span>
+        </div>
+        <div>
+          <label for="rp">Response Potential RP</label>
+	  <input id="rp" class="text_input" type=text value={{pp_parms.responsepot}}>
+          <span id="rp_span" class="error_span"></span>
+        </div>
+        <div>
+          <label for="pp">Performance Potential PP</label>
+	  <input id="pp" class="text_input" type=text value={{pp_parms.perfpot}}>
+          <span id="pp_span" class="error_span"></span>
+        </div>
+        <div>
+          <label for="ds">Delay of Strain Rate DS</label>
+	  <input id="ds" class="text_input" type=text value={{pp_parms.straindelay}}>
+          <span id="ds_span" class="error_span"></span>
+        </div>
+        <div>
+          <label for="dr">Delay of Response Rate DR</label>
+	  <input id="dr" class="text_input" type=text value={{pp_parms.responsedelay}}>
+          <span id="dr_span" class="error_span"></span>
+        </div>
+        <div>
+          <label for="dso">Delay of Strain Overflow Rate DSO</label>
+	  <input id="dso" class="text_input" type=text value={{pp_parms.overflowdelay}}>
+          <span id="dso_span" class="error_span"></span>
+        </div>
+	<div>
+          <label for="load_scale_factor">Load Scale Factor</label>
+	  <input id="load_scale_factor" class="text_input" type=text value={{pp_parms.load_scale_factor}}>
+          <span id="load_scale_factor_span" class="error_span"></span>
+        </div>
+	<div>
+          <label for="perf_scale_factor">Performance Scale Factor</label>
+	  <input id="perf_scale_factor" class="text_input" type=text value={{pp_parms.perf_scale_factor}}>
+          <span id="perf_scale_factor_span" class="error_span"></span>
+        </div>
+      </div>
+    </form>
+    <div>
+      <button id="calc_button">calculate</button>
+    </div>
+  </div>
+
+  <div class="playground_container">
+      <p id="afterplanperformance">performance after plan: </p>
+      <div id="perf_and_plan_plot" style="height:600px;width:800px; "></div>
+  </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+  <script language="javascript" type="text/javascript" src="/static/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jquery.jqplot.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jqplot.canvasTextRenderer.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jqplot.canvasAxisLabelRenderer.min.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/jqplot.barRenderer.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/jquery.jqplot.min.css" />
+  <link rel="stylesheet" type="text/css" href="/static/traipor.css" />
+  <script language="javascript" type="text/javascript" src="/static/util.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/perpot_app.js"></script>
+  <script language="javascript" type="text/javascript" src="/static/perpot.js"></script>
+{% endblock %}

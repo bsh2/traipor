@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}traipor - generate a {{ model }} plan{% endblock %}
+
+{% block page_content %}
+  <div class="page-header">
+    <h1>Generate a {{ model }} Plan</h1>
+  </div>
+
+  <div class="col-md-4">
+    <p>Your modeled performance for next Monday ({{ next_monday }}) is {{ next_monday_p|round(2) }} {{ current_user.ff_parameters.first().perf_metric }}</p>
+
+    <form class="form form-horizontal" method="post" role="form">
+      {{ form.hidden_tag() }}
+      {{ wtf.form_errors(form, hiddens="only") }}
+
+      {{ wtf.form_field(form.name) }}
+      {{ wtf.form_field(form.goal) }}
+      {{ wtf.form_field(form.length) }}
+      {{ wtf.form_field(form.max_load) }}
+      {{ wtf.form_field(form.min_load) }}
+      {{ wtf.form_field(form.off_weeks) }}
+      {{ wtf.form_field(form.off_days) }}
+      <strong>Pick any additional Off Days</strong>
+      <div id='offdayspicker'></div>
+      <br>
+      <strong>Weekly Training Days</strong>
+      {{ wtf.form_field(form.mondays) }}
+      {{ wtf.form_field(form.tuesdays) }}
+      {{ wtf.form_field(form.wednesdays) }}
+      {{ wtf.form_field(form.thursdays) }}
+      {{ wtf.form_field(form.fridays) }}
+      {{ wtf.form_field(form.saturdays) }}
+      {{ wtf.form_field(form.sundays) }}
+      {{ wtf.form_field(form.submit) }}
+      <p>* mandatory</p>
+    </form>
+
+  </div>
+
+  <div class="col-md-4">
+    <h4>Please note:</h4>
+    <p>
+    The generated plans start next monday after your last training (based on
+    your metrics upload).
+    The same metrics you chose in your parameter fitting are used for the plan
+    generation, too. Besides the mandatory settings like the goal you want to
+    reach, the amount of weeks and the maximum training load you want to endure,
+    there are some optional constraints you can set. Like some off weeks or off
+    days or the weekdays you don't want to schedule for training.
+    </p>
+    <p>
+    One thing to remember is that the algorithm searches a plan that leads to
+    your goal <strong>inside</strong> the used training model.
+    </p>
+    <p>
+    It's possible that the algorithm can't find a plan for your goal and your
+    constraints. The reason can be a too ambitious goal, too tight constraints,
+    model parameters that don't allow a bigger improvement or a flaw of the
+    algorithm itself. If you are sure a plan for your goal should exist and the
+    algorithm isn't able to come up with a reasonable solution, please tell us.
+    </p>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script language="javascript" type="text/javascript" src="/static/jquery.min.js"></script>
+
+  <link rel="stylesheet" media="screen" type="text/css" href="/static/datepicker/css/datepicker.css" />
+  <script type="text/javascript" src="/static/datepicker/js/datepicker.js"></script>
+  <script>
+    $('#offdayspicker').DatePicker({
+      flat: true,
+      date: [],
+      current: '{{ next_monday }}',
+      format: 'Y-m-d',
+      calendars: 1,
+      mode: 'multiple',
+      starts: 1,
+      onChange: function(formated, dates){
+        $('#off_days').val($('#offdayspicker').DatePickerGetDate(true));
+      }
+    });
+  </script>
+
+
+{% endblock %}

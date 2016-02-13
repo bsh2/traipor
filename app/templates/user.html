@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}traipor - {{current_user.username}}{% endblock %}
+
+{% block page_content %}
+  <div class="page-header">
+    <h2>Profile</h2>
+  </div>  
+
+  <div class="well">
+    <h4>Your Fitness Fatigue parameters:</h4>
+    {% if current_user.ff_parameters.first() %}
+      <p>initial_p: {{current_user.ff_parameters.first().initial_p|round(4)}}</p>
+      <p>k_1: {{current_user.ff_parameters.first().k_1|round(4)}}</p>
+      <p>tau_1: {{current_user.ff_parameters.first().tau_1|round(4)}}</p>
+      <p>k_2: {{current_user.ff_parameters.first().k_2|round(4)}}</p>
+      <p>tau_2: {{current_user.ff_parameters.first().tau_2|round(4)}}</p>
+      <p>used load metric: {{current_user.ff_parameters.first().load_metric}}</p>
+      <p>used performance metric: {{current_user.ff_parameters.first().perf_metric}}</p>
+    {% else %}  
+      <p>None so far. <a href="{{ url_for('training.ff_fitting') }}">Start your Fitness Fatigue parameter fitting.</a></p>
+    {% endif %}
+  </div>
+
+  <div class="well">
+    <h4>Your PerPot parameters:</h4>
+    {% if current_user.pp_parameters.first() %}
+      <p>strainpot: {{current_user.pp_parameters.first().strainpot|round(4)}}</p>
+      <p>responsepot: {{current_user.pp_parameters.first().responsepot|round(4)}}</p>
+      <p>perfpot: {{current_user.pp_parameters.first().perfpot|round(4)}}</p>
+      <p>straindelay: {{current_user.pp_parameters.first().straindelay|round(4)}}</p>
+      <p>responsedelay: {{current_user.pp_parameters.first().responsedelay|round(4)}}</p>
+      <p>overflowdelay: {{current_user.pp_parameters.first().overflowdelay|round(4)}}</p>
+      <p>used load metric: {{current_user.pp_parameters.first().load_metric}}</p>
+      <p>used performance metric: {{current_user.pp_parameters.first().perf_metric}}</p>
+    {% else %}  
+      <p>None so far. <a href="{{ url_for('training.pp_fitting') }}">Start your PerPot parameter fitting.</a></p>
+    {% endif %}
+  </div>
+
+
+  <div class="well">
+    <h4>You provided us with the following data:</h4>
+    <ul>
+    {% if current_user.gc_metrics_file.first() %}
+      <li><p>GC metrics on {{ current_user.gc_metrics_file.first().upload_date }} {{ wtf.quick_form(form) }}</p></li>
+    {% endif %}
+    </ul>
+  </div>
+
+  <div class="well">
+    <h4>Your running jobs:</h4>
+    <ul>
+    {% for job in current_user.pending_jobs.all() %} 
+      <li>{{ job.job_type.to_str() }} created at {{ job.creation_time }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

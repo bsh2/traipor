@@ -1,0 +1,15 @@
+<p>Dear {{ user.username }},</p>
+<p>your ff parameters were fitted.</p>
+<p>initial_p: {{ ffparms.initial_p|round(4) }}</p>
+<p>k_1: {{ ffparms.k_1|round(4) }}</p>
+<p>tau_1: {{ ffparms.tau_1|round(4) }}</p>
+<p>k_2: {{ ffparms.k_2|round(4) }}</p>
+<p>tau_2: {{ ffparms.tau_2|round(4) }}</p>
+<p>used load metric: {{ ffparms.load_metric }}</p>
+<p>used performance metric: {{ ffparms.perf_metric }}</p>
+<p>rmse: {{ fmin }}</p>
+<p>runtime: {{ runtime }}</p>
+<p>algo: {{ algo }}</p>
+<p>You can now proceed to generate a PerPot plan.</p>
+<p>Sincerely,</p>
+<p>The traipor Team</p>

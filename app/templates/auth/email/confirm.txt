@@ -1,0 +1,11 @@
+Dear {{ user.username }},
+
+Welcome to traipor!
+
+To confirm your account please visit the following link and log in:
+
+{{ url_for('auth.confirm', token=token, _external=True) }}
+
+Sincerely,
+
+The traipor Team

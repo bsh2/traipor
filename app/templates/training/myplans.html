@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "training/macros.html" as macro %}
+
+{% block title %}traipor - your {{ model }} plans{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+  <h1>Your {{ model }} plans</h1>
+</div>
+
+<div class="col-md-6">
+  {% for plan, details_form, delete_form in plans_and_forms %}
+    {{ macro.render_plan_short(plan, details_form, delete_form) }}
+  {% endfor %}
+</div>
+
+{% endblock %}

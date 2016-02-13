@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}traipor{% endblock %}
+
+{% block page_content %}
+  <div class="page-header">
+    <h1>Exclusion of Liability</h1>
+  </div>
+  {% include 'liability_exclusion_content.html' %}
+
+  <h1>Haftungsausschluss</h1>
+  {% include 'liability_exclusion_content_de.html' %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

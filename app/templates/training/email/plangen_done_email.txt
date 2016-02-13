@@ -1,0 +1,26 @@
+Dear {{ user.username }},
+your {{ model }} plan was generated.
+Starting at a modeled performance of {{ plan.ui_start_perf()|round(2) }} {{ plan.perf_metric }},
+your goal was {{ plan.ui_goal()|round(2) }} {{ plan.perf_metric }}.
+The plan leads you to {{ plan.ui_end_perf()|round(2) }} {{ plan.perf_metric }}.
+The approximation quality is {{ approx_quality|round(2) }}%.
+
+{% if not below_threshold %}
+There are a few things you can try to improve the approximation quality like:
+  - lowering your performance goal
+  - increase the maximum load
+  - decrease the minimum load
+  - increase the plan length
+  - adjust the number of weekly training days
+  - adjust the number of off days and off weeks
+{% endif %}
+
+{% include "plan_note.txt" %}
+
+Your plan loads in {{ plan.load_metric }}:
+  {% for entry in plan.to_calendar() %}
+    {{ entry }}
+  {% endfor %}
+
+Sincerely,
+The traipor Team

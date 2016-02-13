@@ -1,0 +1,110 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}traipor{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='traipor.css') }}">
+{% endblock %}
+
+{% block head %}
+{{ super() }}
+<!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">-->
+<!--<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">-->
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">traipor</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                {% if current_user.is_authenticated() %}
+
+                  <li><a href="{{ url_for('main.user') }}">Profile</a></li>
+                  <li><a href="{{ url_for('uploads.gc_metrics_file') }}">Upload your GC metrics</a></li>
+
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Fitness Fatigue Model <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{{ url_for('training.ff_fitting') }}">Start your FF fitting</a></li>
+                      <li><a href="{{ url_for('training.ff_genplan') }}">Generate your FF plan</a></li>
+                      <li><a href="{{ url_for('training.ff_myplans') }}">Your FF plans</a></li>
+                      <li><a href="{{ url_for('main.ff_playground') }}">Play with the FF model</a></li>
+                    </ul>
+                  </li>
+
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> PerPot Model <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="{{ url_for('training.pp_fitting') }}">Start your PP fitting</a></li>
+                      <li><a href="{{ url_for('training.pp_genplan') }}">Generate your PP plan</a></li>
+                      <li><a href="{{ url_for('training.pp_myplans') }}">Your PP plans</a></li>
+                      <li><a href="{{ url_for('main.pp_playground') }}">Play with the PP model</a></li>
+                    </ul>
+                  </li>
+
+
+		{% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated() %}
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Account <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>
+                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                        <li><a href="{{ url_for('auth.delete_account') }}">Delete Account</a></li>
+                    </ul>
+                  </li>
+                {% else %}
+                  <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                  <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="container" id="wrap">
+    {% for message in get_flashed_messages() %}
+      <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+      </div>
+    {% endfor %}
+
+    {% block page_content %}
+    {% endblock %}
+  </div>
+  <div id="push"></div>
+
+  <div id="footer">
+    <p class="text-center">
+      <a href={{ url_for('main.faq') }}>FAQ</a> - 
+      <a href={{ url_for('main.contact') }}>Contact and Feedback</a> - 
+      <a href={{ url_for('main.impressum') }}>Impressum</a> - 
+      <a href={{ url_for('main.privacy_terms') }}>Privacy Terms</a> - 
+      <a href={{ url_for('main.liability_exclusion') }}>Exclusion of Liability</a>
+    </p>
+    <p class="text-right">v0.1.8</p>
+    {% block footer_content %}{% endblock %}
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

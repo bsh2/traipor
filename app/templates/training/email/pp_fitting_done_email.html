@@ -1,0 +1,16 @@
+<p>Dear {{ user.username }},</p>
+<p>your PerPot parameters were fitted.</p>
+<p>strain potential: {{ ppparms.strainpot|round(4) }}</p>
+<p>response potential: {{ ppparms.responsepot|round(4) }}</p>
+<p>performance potential: {{ ppparms.perfpot|round(4) }}</p>
+<p>strain delay: {{ ppparms.straindelay|round(4) }}</p>
+<p>response delay: {{ ppparms.responsedelay|round(4) }}</p>
+<p>overflow delay: {{ ppparms.overflowdelay|round(4) }}</p>
+<p>used load metric: {{ ppparms.load_metric }}</p>
+<p>used performance metric: {{ ppparms.perf_metric }}</p>
+<p>rmse: {{ fmin }}</p>
+<p>runtime: {{ runtime }}</p>
+<p>algo: {{ algo }}</p>
+<p>You can now proceed to generate a PerPot plan.</p>
+<p>Sincerely,</p>
+<p>The traipor Team</p>

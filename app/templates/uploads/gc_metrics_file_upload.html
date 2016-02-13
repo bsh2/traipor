@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}traipor - GC Metrics Export Upload{% endblock %}
+
+{% block page_content %}
+
+  <div class="page-header">
+    <h1>{{action}} your GoldenCheetah metrics export file.</h1>
+  </div>
+
+  <div class="col-md-6">
+    {{ wtf.quick_form(form, enctype="multipart/form-data") }}
+  </div>
+
+  <div class="col-md-4">
+    <h4>Please note:</h4>
+    <p>
+    To export your metrics from <a href="http://www.goldencheetah.org/">GoldenCheetah</a>, 
+    go to the menu item "Export Metrics as CSV...". Depending on your version of
+    GC, it may be located in the "Activity" or "Tools" menu and you may have to
+    switch to the "Activities" view first.
+    </p>
+    <p>
+    In order to deduce your individual model parameters from your training data
+    you should train at least once a month at your personal limit.
+    </p>
+  </div>
+
+{% endblock %}

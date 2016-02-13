@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}traipor - FF Fitting - {{current_user.username}}{% endblock %}
+
+{% block page_content %}
+  <div class="page-header">
+    <h3>Start your parameter fitting for the {{model_name}} model</h3>
+  </div>
+
+  <div class="col-md-4">
+    {% if current_user.gc_metrics_file.first() %}
+      {{ wtf.quick_form(form) }}
+      <script>
+	var loadSelect = document.getElementById('load_metric_choice');
+	loadSelect.selectedIndex = {{ default_load_metric_index }};
+	var perfSelect = document.getElementById('perf_metric_choice');
+	perfSelect.selectedIndex = {{ default_perf_metric_index }};
+      </script>
+      {% else %}  
+      <p>First <a href="{{ url_for('uploads.gc_metrics_file') }}">upload</a> your GoldenCheetah metrics.</p>
+    {% endif %}
+  </div>
+
+  <div class="col-md-4">
+    <h4>Please note:</h4>
+    <p>The fitting process will use the GC metrics you uploaded on {{ current_user.gc_metrics_file.first().upload_date }}.</p>
+    <p>You don't need to do this if you have already used this particular upload for a parameter fitting.</p>
+    <p>Later on, when you set your goal for the plan to be generated, the
+    performance metric you choose here will be used for the goal metric as well.
+    The generated plan will also use the load metric you choose here.
+    </p>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

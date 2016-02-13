@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}traipor{% endblock %}
+
+{% block page_content %}
+  
+  <div class="page-header">
+    <h1>Hello {% if current_user.is_authenticated() %}{{current_user.username}}{% else %} cyclist{% endif %}!</h1>
+    <h3>Welcome to traipor, the <a href="http://stella-mobility-de.weebly.com/">Stella</a> Training Portal</h3>
+    <p>Let's suffer for science and reach your goals with evolutionary breeded,
+       optimized training plans!</p>
+    <p>Read the <a href="{{ url_for('main.faq') }}">FAQ</a> for more information.</p>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}
